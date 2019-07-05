@@ -1,0 +1,7 @@
+ext.mod = [
+        app: ":app",
+        core: [
+                rx:  ":core:core_rx",
+                injection: ":core:core_injection"
+        ]
+]

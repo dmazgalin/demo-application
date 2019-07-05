@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Demo App</string>
+    <string name="title_rating_screen_feature">rating_feature</string>
+</resources>

@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "com.example.booksapp"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    dynamicFeatures = [":rating_screen_feature"]
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(mod.core.rx)
+    implementation project(mod.core.injection)
+
+    implementation dependency.kotlin.jdk
+    implementation dependency.androidX.appCompat
+    implementation dependency.androidX.ktx.core
+    implementation dependency.androidX.constraintLayout
+
+    implementation dependency.google.materialDesign
+
+    implementation dependency.firebase.core
+
+    implementation dependency.dagger.v2.core
+    kapt dependency.dagger.v2.compiler
+
+    testImplementation dependency.test.junit
+    testImplementation dependency.test.mockito
+    testImplementation dependency.test.mockitoKotlin
+    testImplementation dependency.test.kotlinJunit
+
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

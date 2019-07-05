@@ -1,0 +1,1 @@
+include ':app', ':rating_screen_feature', ':core:core_rx', ':core:core_injection'

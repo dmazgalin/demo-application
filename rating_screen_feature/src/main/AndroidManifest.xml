@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.example.bookrating">
+
+    <dist:module
+        dist:instant="false"
+        dist:onDemand="false"
+        dist:title="@string/title_rating_screen_feature">
+        <dist:fusing dist:include="true" />
+    </dist:module>
+    <application android:name="com.example.booksapp.BooksApp">
+        <activity android:name="com.example.bookrating.ui.BooksActivity" android:theme="@style/AppTheme"/>
+    </application>
+</manifest>
+

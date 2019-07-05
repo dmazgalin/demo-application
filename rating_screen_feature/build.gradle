@@ -1,0 +1,36 @@
+apply plugin: 'com.android.dynamic-feature'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(mod.app)
+    implementation project(mod.core.rx)
+    implementation project(mod.core.injection)
+
+    implementation dependency.kotlin.jdk
+
+    implementation dependency.androidX.appCompat
+    implementation dependency.androidX.ktx.core
+    implementation dependency.androidX.constraintLayout
+    implementation dependency.androidX.lifecycle.viewModel
+    implementation dependency.androidX.lifecycle.viewModelKtx
+    implementation dependency.androidX.lifecycle.extensions
+
+    implementation dependency.google.materialDesign
+
+    implementation dependency.rx.java
+    implementation dependency.rx.android
+
+    implementation dependency.dagger.v2.core
+    kapt dependency.dagger.v2.compiler
+
+    testImplementation dependency.test.junit
+    testImplementation dependency.test.mockito
+    testImplementation dependency.test.mockitoKotlin
+    testImplementation dependency.test.kotlinJunit
+}

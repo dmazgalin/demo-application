@@ -1,0 +1,10 @@
+ext.dependency["test"] = [
+        junit        : dependencies.create("junit:junit:${versions.test.junit}") {
+            exclude module: 'hamcrest-core'
+        },
+        mockito      : dependencies.create("org.mockito:mockito-core:${versions.test.mockito}") {
+            exclude module: 'hamcrest-core'
+        },
+        kotlinJunit  : "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin.core}",
+        mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test.mockitoKotlin}",
+]
