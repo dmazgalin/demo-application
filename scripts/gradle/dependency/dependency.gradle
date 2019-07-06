@@ -42,7 +42,8 @@ ext.dependency = [
         ],
         firebase: [
                 core: "com.google.firebase:firebase-core:${versions.firebase.core}"
-        ]
+        ],
+        timber  : "com.jakewharton.timber:timber:${versions.timber}",
 
 
 ]
