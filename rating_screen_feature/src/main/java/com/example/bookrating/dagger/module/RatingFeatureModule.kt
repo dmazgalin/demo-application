@@ -5,6 +5,7 @@ import com.example.bookrating.data.BooksRepository
 import com.example.bookrating.data.BooksRepositoryImpl
 import com.example.bookrating.data.RatingsRepository
 import com.example.bookrating.data.RatingsRepositoryImpl
+import com.example.bookrating.rating.NumberGenerator
 import com.example.bookrating.ui.viewmodel.ViewModelFactory
 import com.example.rx.scheduler.SchedulerConfiguration
 import dagger.Module
@@ -29,7 +30,12 @@ class RatingFeatureModule {
     }
 
     @Provides
-    fun providesViewModelFactory(booksRepository: BooksRepository, repository: RatingsRepository, schedulerConfiguration: SchedulerConfiguration): ViewModelFactory {
-        return ViewModelFactory(booksRepository, repository, schedulerConfiguration)
+    fun providesNumberGenerator(schedulerConfiguration: SchedulerConfiguration): NumberGenerator {
+        return NumberGenerator(schedulerConfiguration.time)
+    }
+
+    @Provides
+    fun providesViewModelFactory(booksRepository: BooksRepository, repository: RatingsRepository, generator: NumberGenerator, schedulerConfiguration: SchedulerConfiguration): ViewModelFactory {
+        return ViewModelFactory(booksRepository, repository, generator, schedulerConfiguration)
     }
 }
