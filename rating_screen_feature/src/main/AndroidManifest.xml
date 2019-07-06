@@ -8,7 +8,7 @@
         dist:title="@string/title_rating_screen_feature">
         <dist:fusing dist:include="true" />
     </dist:module>
-    <application android:name="com.example.booksapp.BooksApp">
+    <application android:name="com.example.booksapp.DemoApp">
         <activity android:name="com.example.bookrating.ui.BooksActivity" android:theme="@style/AppTheme"/>
     </application>
 </manifest>
