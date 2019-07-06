@@ -9,4 +9,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        startActivity(Activities.BookRatingActivity.newIntent(this))
+
+        finish()
+    }
 }
