@@ -12,6 +12,10 @@ subprojects {
                     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
                 }
 
+                testOptions {
+                    unitTests.returnDefaultValues = true
+                }
+
                 packagingOptions {
                     exclude 'META-INF/DEPENDENCIES.txt'
                     exclude 'META-INF/LICENSE'

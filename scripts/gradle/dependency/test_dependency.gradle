@@ -7,4 +7,7 @@ ext.dependency["test"] = [
         },
         kotlinJunit  : "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin.core}",
         mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test.mockitoKotlin}",
+        androidX     : [
+                core: "androidx.arch.core:core-testing:${versions.test.androidX.coreTesting}"
+        ]
 ]

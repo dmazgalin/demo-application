@@ -1,7 +1,11 @@
 ext.mod = [
-        app: ":app",
+        app : ":app",
         core: [
-                rx:  ":core:core_rx",
-                injection: ":core:core_injection"
+                rx       : ":core:core_rx",
+                injection: ":core:core_injection",
+                test     : ":core:core_test"
+        ],
+        book: [
+                rating: ":rating_screen_feature"
         ]
 ]

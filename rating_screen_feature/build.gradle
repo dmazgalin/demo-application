@@ -11,6 +11,7 @@ dependencies {
     implementation project(mod.app)
     implementation project(mod.core.rx)
     implementation project(mod.core.injection)
+    implementation project(mod.core.test)
 
     implementation dependency.kotlin.jdk
 
@@ -35,4 +36,5 @@ dependencies {
     testImplementation dependency.test.mockito
     testImplementation dependency.test.mockitoKotlin
     testImplementation dependency.test.kotlinJunit
+    testImplementation dependency.test.androidX.core
 }
