@@ -12,18 +12,19 @@ class RatingsRepositoryImpl: RatingsRepository {
     }
 
     override fun addRating(bookId: String, rate: Int) {
+        if (rate in 1..5) {
+            val currentRating: BookRating
 
-        val currentRating: BookRating
+            if (ratings.containsKey(bookId)) {
+                currentRating = ratings.getValue(bookId)
+                currentRating.addNewRating(rate)
+            } else {
+                currentRating = BookRating(bookId)
+                currentRating.addNewRating(rate)
+            }
 
-        if (ratings.containsKey(bookId)) {
-            currentRating = ratings.getValue(bookId)
-            currentRating.addNewRating(rate)
-        } else {
-            currentRating = BookRating(bookId)
-            currentRating.addNewRating(rate)
+            ratings.put(bookId, currentRating)
         }
-
-        ratings.put(bookId, currentRating)
     }
 
     override fun clear() {

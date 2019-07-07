@@ -35,7 +35,9 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.books_activity)
 
-        bookAdapter = BookAdapter()
+        bookAdapter = BookAdapter { position, book ->
+            viewModel.onItemClick(position, book)
+        }
 
         booksRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         booksRecycler.adapter = bookAdapter
@@ -46,17 +48,14 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
 
         viewModel.getRatingLiveData().observe(this, Observer { rating ->
             run {
-                Toast.makeText(this, "Rating is $rating", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Rating for book ${rating.book} is ${rating.rating}", Toast.LENGTH_SHORT).show()
 
                 getBooks()
             }
         })
 
-        generatorButton.setOnClickListener { v ->
-            run {
-                viewModel.generatorButtonClicked()
-            }
-        }
+        setupRateDialog()
+        setupGeneratorClick()
     }
 
     override fun onResume() {
@@ -74,10 +73,20 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
         Timber.d("Rating was canceled")
     }
 
+    private fun setupRateDialog() = viewModel.getDialogCallLiveData().observe(this, Observer { book ->
+        showRateDialog(book.id)
+    })
+
+    private fun setupGeneratorClick() {
+        generatorButton.setOnClickListener {
+            viewModel.generatorButtonClicked()
+        }
+    }
+
     /**
      * This method shows rating dialog.
      */
-    fun show(bookId: String) {
+    fun showRateDialog(bookId: String) {
         RatingDialog.newInstance(bookId).apply {
             setListener(this@BooksActivity)
             show(supportFragmentManager, RATING_DIALOG)

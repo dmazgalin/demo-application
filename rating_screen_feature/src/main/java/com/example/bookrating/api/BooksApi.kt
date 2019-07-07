@@ -14,6 +14,12 @@ class BooksApi {
         booksList.add(BookFeed("4", "Book 4", ""))
         booksList.add(BookFeed("5", "Book 5", ""))
         booksList.add(BookFeed("6", "Book 6", ""))
+        booksList.add(BookFeed("7", "Book 7", ""))
+        booksList.add(BookFeed("8", "Book 8", ""))
+        booksList.add(BookFeed("9", "Book 9", ""))
+        booksList.add(BookFeed("10", "Book 10", ""))
+        booksList.add(BookFeed("11", "Book 11", ""))
+        booksList.add(BookFeed("12", "Book 12", ""))
     }
 
     fun fetchBooks(): BooksFeed {

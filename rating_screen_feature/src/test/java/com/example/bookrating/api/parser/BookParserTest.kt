@@ -2,6 +2,7 @@ package com.example.bookrating.api.parser
 
 import com.example.bookrating.api.feed.BookFeed
 import com.example.bookrating.api.feed.BooksFeed
+import com.example.bookrating.model.Book
 import com.example.bookrating.model.BookWithRating
 import org.junit.Before
 import org.junit.Test
@@ -53,7 +54,7 @@ class BookParserTest {
 
     private fun getBookFeedItem(id: Int): BookFeed = BookFeed(id.toString(), "title$id", "image$id")
 
-    private fun getBookWithRating(bookFeedItem: BookFeed): BookWithRating? {
-        return BookWithRating(bookFeedItem.title, bookFeedItem.image, 0)
+    private fun getBookWithRating(bookFeedItem: BookFeed): Book {
+        return Book(bookFeedItem.id, bookFeedItem.title, bookFeedItem.image)
     }
 }

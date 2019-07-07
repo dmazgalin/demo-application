@@ -46,6 +46,8 @@ dependencies {
     implementation dependency.dagger.v2.core
     kapt dependency.dagger.v2.compiler
 
+    implementation dependency.timber
+
     testImplementation dependency.test.junit
     testImplementation dependency.test.mockito
     testImplementation dependency.test.mockitoKotlin

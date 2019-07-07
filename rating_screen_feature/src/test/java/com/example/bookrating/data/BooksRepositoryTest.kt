@@ -54,7 +54,7 @@ class BooksRepositoryTest {
         disposables.add(testObserver)
 
         testObserver.awaitTerminalEvent()
-        testObserver.assertNoErrors().assertValue({ l -> l.size == 3 })
+        testObserver.assertNoErrors().assertValue { it.size == 3 }
     }
 
     private fun getNonEmptyBooksFeed() = BooksFeed(listOf(getBook(1), getBook(2), getBook(3)))

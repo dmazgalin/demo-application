@@ -1,3 +1,3 @@
 package com.example.bookrating.model
 
-data class BookWithRating(val title: String, val image: String, val rating: Int)
+data class BookWithRating(val id: String, val title: String, val image: String, var rating: Int)

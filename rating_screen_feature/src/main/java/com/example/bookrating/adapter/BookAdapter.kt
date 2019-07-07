@@ -8,9 +8,11 @@ import com.example.bookrating.R
 import com.example.bookrating.adapter.utils.BooksDiffUtils
 import com.example.bookrating.model.BookWithRating
 import com.example.bookrating.adapter.viewholder.BookViewHolder
+import io.reactivex.subjects.PublishSubject
+import timber.log.Timber
 import java.util.ArrayList
 
-class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
+class BookAdapter(private val onClickListener: (Int, BookWithRating) -> Unit) : RecyclerView.Adapter<BookViewHolder>() {
 
     private var books: List<BookWithRating> = emptyList()
 
@@ -23,8 +25,18 @@ class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.title.text = books.get(position).title
-        holder.rating.text = books.get(position).rating.toString()
+        val bookWithRating = books.getOrNull(position)
+        bookWithRating?.let { item ->
+            bindBookToViewHolder(holder, item, position)
+        }
+    }
+
+    private fun bindBookToViewHolder(holder: BookViewHolder, item: BookWithRating, position: Int) {
+        with(holder) {
+            title.text = item.title
+            rating.text = "Rating ${item.rating}"
+            itemView.setOnClickListener { onClickListener(position, item) }
+        }
     }
 
     fun setBooks(list: List<BookWithRating>) {

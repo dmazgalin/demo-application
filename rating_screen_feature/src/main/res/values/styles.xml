@@ -19,4 +19,19 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
+
+    <style name="TextAppearance.Book"/>
+
+    <style name="TextAppearance.Book.Title">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextAppearance.Book.Rating">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

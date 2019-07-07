@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.booksapp.dagger.DaggerAppComponent
 import com.example.injection.dagger.module.ModuleAppContext
 import com.example.rx.dagger.ModuleCoreRx
+import timber.log.Timber
 
 class DemoApp : Application() {
 
@@ -17,6 +18,8 @@ class DemoApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        Timber.plant(Timber.DebugTree())
     }
 
     companion object {

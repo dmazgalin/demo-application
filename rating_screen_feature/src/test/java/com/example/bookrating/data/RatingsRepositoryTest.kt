@@ -19,6 +19,14 @@ class RatingsRepositoryTest {
     }
 
     @Test
+    fun testAddNonRatingForOneBook() {
+        ratingsRepository.addRating("1", 0)
+
+        assertEquals(null, ratingsRepository.getBookRating("1")?.getEverageRating(), "Everage rating should be not set")
+
+    }
+
+    @Test
     fun testAddRatingForOneBook() {
         ratingsRepository.addRating("1", 2)
         ratingsRepository.addRating("1", 2)

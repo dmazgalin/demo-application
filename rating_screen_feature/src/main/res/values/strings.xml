@@ -10,4 +10,5 @@
     <string name="excelent">Excelent</string>
     <string name="rating_dialog">Rating dialog</string>
     <string name="rating_dialog_description">Please provide your opinion</string>
+    <string name="random">Random</string>
 </resources>
