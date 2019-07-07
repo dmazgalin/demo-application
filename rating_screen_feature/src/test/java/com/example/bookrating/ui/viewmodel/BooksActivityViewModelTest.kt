@@ -1,7 +1,7 @@
 package com.example.bookrating.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.bookrating.api.feed.BookRating
+import com.example.bookrating.model.BookRating
 import com.example.bookrating.data.BooksRepository
 import com.example.bookrating.data.RatingsRepository
 import com.example.bookrating.model.Book
@@ -25,7 +25,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
-class RatingViewModelTest {
+class BooksActivityViewModelTest {
 
     @Mock
     lateinit var booksRepository: BooksRepository
@@ -43,13 +43,13 @@ class RatingViewModelTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     //SUT
-    lateinit var viewModel: RatingViewModel
+    lateinit var viewModel: BooksActivityViewModel
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        viewModel = RatingViewModel(booksRepository, ratingsRepository, ratingGenerator, schedulerConfiguration)
+        viewModel = BooksActivityViewModel(booksRepository, ratingsRepository, ratingGenerator, schedulerConfiguration)
 
         whenever(ratingsRepository.getBookRating("1")).thenReturn(BookRating("1", 0, 0, 0, 1, 0))
 
@@ -60,10 +60,18 @@ class RatingViewModelTest {
     @Test
     fun generatorButtonClick() {
         whenever(ratingGenerator.getNextNumber(booksRepository.getBooks())).thenReturn(Observable.just(GenerationResult(book, 4)))
+        val dataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
 
         viewModel.generatorButtonClicked()
 
         verify(ratingGenerator, only()).getNextNumber(booksRepository.getBooks())
+
+        viewModel.generatorButtonClicked()
+
+        assertEquals(2, dataObserver.observedValues.size)
+
+        assertEquals(true, dataObserver.observedValues.first())
+        assertEquals(false, dataObserver.observedValues.last())
     }
 
     @Test

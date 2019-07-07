@@ -11,8 +11,8 @@ import java.lang.IllegalArgumentException
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(private val booksRepository: BooksRepository, private val ratingsRepository: RatingsRepository, private val generator: NumberGenerator, private val schedulerConfiguration: SchedulerConfiguration) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when {
-        modelClass.isAssignableFrom(RatingViewModel::class.java) ->
-            RatingViewModel(
+        modelClass.isAssignableFrom(BooksActivityViewModel::class.java) ->
+            BooksActivityViewModel(
                 booksRepository,
                 ratingsRepository,
                 generator,

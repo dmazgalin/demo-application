@@ -1,4 +1,4 @@
-package com.example.bookrating.api.feed
+package com.example.bookrating.model
 
 data class BookRating(val id: String, var oneStart: Int, var twoStart: Int, var threeStar: Int, var fourStar: Int, var fiveStar: Int) {
     constructor(id: String) : this(id, 0, 0, 0, 0, 0)

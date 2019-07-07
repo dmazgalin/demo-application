@@ -12,7 +12,7 @@ import com.example.bookrating.adapter.BookAdapter
 import com.example.bookrating.dagger.Injector
 import com.example.bookrating.ui.dialog.RatingDialog
 import com.example.bookrating.ui.listener.RatingDialogListener
-import com.example.bookrating.ui.viewmodel.RatingViewModel
+import com.example.bookrating.ui.viewmodel.BooksActivityViewModel
 import com.example.bookrating.ui.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.books_activity.*
 import timber.log.Timber
@@ -22,12 +22,13 @@ const val RATING_DIALOG = "RatingDialog"
 
 class BooksActivity : AppCompatActivity(), RatingDialogListener {
 
-    lateinit var bookAdapter: BookAdapter
+    private lateinit var bookAdapter: BookAdapter
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)[RatingViewModel::class.java]
+        ViewModelProviders.of(this, viewModelFactory)[BooksActivityViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,10 +49,13 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
 
         viewModel.getRatingLiveData().observe(this, Observer { rating ->
             run {
-                Toast.makeText(this, "Rating for book ${rating.book} is ${rating.rating}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "New rating ${rating.rating} for book ${rating.book.title}", Toast.LENGTH_SHORT).show()
 
                 getBooks()
             }
+        })
+        viewModel.getControlButtonLiveData().observe(this, Observer {
+            isActive -> generatorButton.text = getString(if (isActive) R.string.stop else R.string.random)
         })
 
         setupRateDialog()
@@ -86,7 +90,7 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
     /**
      * This method shows rating dialog.
      */
-    fun showRateDialog(bookId: String) {
+    private fun showRateDialog(bookId: String) {
         RatingDialog.newInstance(bookId).apply {
             setListener(this@BooksActivity)
             show(supportFragmentManager, RATING_DIALOG)

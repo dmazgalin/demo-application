@@ -13,7 +13,7 @@ import com.example.rx.scheduler.SchedulerConfiguration
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
-class RatingViewModel(
+class BooksActivityViewModel(
     private val booksRepository: BooksRepository,
     private val ratingsRepository: RatingsRepository,
     private val generator: NumberGenerator,
@@ -23,16 +23,19 @@ class RatingViewModel(
     private val ratingLiveData = MutableLiveData<GenerationResult>()
     private val booksLiveData = MutableLiveData<List<BookWithRating>>()
     private val dialogLiveData = MutableLiveData<BookWithRating>()
+    private val controllButtonLiveData = MutableLiveData<Boolean>()
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    var generatorActive: Boolean = false
+    private var generatorActive: Boolean = false
 
     fun getRatingLiveData(): LiveData<GenerationResult> = ratingLiveData
 
     fun getBooksLiveData(): LiveData<List<BookWithRating>> = booksLiveData
 
     fun getDialogCallLiveData(): LiveData<BookWithRating> = dialogLiveData
+
+    fun getControlButtonLiveData(): LiveData<Boolean> = controllButtonLiveData
 
     fun getBooks() {
         val disposable = booksRepository.fetchBooks()
@@ -76,7 +79,7 @@ class RatingViewModel(
         compositeDisposable.add(disposable)
     }
 
-    fun stopRating() {
+    private fun stopRating() {
         compositeDisposable.clear()
     }
 
@@ -88,6 +91,7 @@ class RatingViewModel(
             generatorActive = false
             stopRating()
         }
+        controllButtonLiveData.postValue(generatorActive)
     }
 
     override fun onCleared() {

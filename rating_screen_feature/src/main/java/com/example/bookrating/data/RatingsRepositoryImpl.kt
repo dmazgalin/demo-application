@@ -1,6 +1,6 @@
 package com.example.bookrating.data
 
-import com.example.bookrating.api.feed.BookRating
+import com.example.bookrating.model.BookRating
 import java.util.HashMap
 
 class RatingsRepositoryImpl: RatingsRepository {

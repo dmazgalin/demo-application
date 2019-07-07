@@ -42,7 +42,7 @@ class BooksRepositoryTest {
         disposables.add(testObserver)
 
         testObserver.awaitTerminalEvent()
-        testObserver.assertNoErrors().assertValue({ l -> l.size == 0 })
+        testObserver.assertNoErrors().assertNoValues()
     }
 
     @Test
