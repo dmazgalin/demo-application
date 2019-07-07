@@ -10,6 +10,7 @@ import com.example.bookrating.rating.GenerationResult
 import com.example.bookrating.rating.NumberGenerator
 import com.example.rx.test.TestSchedulerConfigurationImpl
 import com.example.test.testLiveDataWrapper
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.only
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -59,12 +60,13 @@ class BooksActivityViewModelTest {
 
     @Test
     fun generatorButtonClick() {
-        whenever(ratingGenerator.getNextNumber(booksRepository.getBooks())).thenReturn(Observable.just(GenerationResult(book, 4)))
+        whenever(booksRepository.fetchBooks()).thenReturn(Observable.just(listOf(book)))
+        whenever(ratingGenerator.getNextNumber(any())).thenReturn(Observable.just(GenerationResult(book, 4)))
         val dataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
 
         viewModel.generatorButtonClicked()
 
-        verify(ratingGenerator, only()).getNextNumber(booksRepository.getBooks())
+        verify(ratingGenerator, only()).getNextNumber(any())
 
         viewModel.generatorButtonClicked()
 
