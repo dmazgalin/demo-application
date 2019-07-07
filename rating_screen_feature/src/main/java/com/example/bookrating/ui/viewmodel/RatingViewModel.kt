@@ -42,7 +42,7 @@ class RatingViewModel(
             .map { it ->
                 it.sortedByDescending { it.rating }
             }
-            .subscribeOn(schedulerConfiguration.ui)
+            .observeOn(schedulerConfiguration.ui)
             .subscribe { books ->
                 booksLiveData.postValue(books)
             }
@@ -63,7 +63,7 @@ class RatingViewModel(
 
     fun generateRating() {
         val disposable = generator.getNextNumber(booksRepository.getBooks())
-            .subscribeOn(schedulerConfiguration.ui)
+            .observeOn(schedulerConfiguration.ui)
             .subscribe({ result ->
                 run {
                     ratingsRepository.addRating(result.book.id, result.rating)
