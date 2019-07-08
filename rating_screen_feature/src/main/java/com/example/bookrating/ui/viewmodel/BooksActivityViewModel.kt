@@ -38,7 +38,7 @@ class BooksActivityViewModel(
     fun getControlButtonLiveData(): LiveData<Boolean> = controllButtonLiveData
 
     fun getBooks() {
-        val disposable = booksRepository.fetchBooks()
+        val disposable = booksRepository.getBooks()
             .map {
                 applyRating(it, ratingsRepository)
             }
@@ -65,7 +65,7 @@ class BooksActivityViewModel(
     }
 
     fun generateRating() {
-        val disposable = booksRepository.fetchBooks()
+        val disposable = booksRepository.getBooks()
             .flatMap { books ->
                 generator.getNextNumber(books)
             }

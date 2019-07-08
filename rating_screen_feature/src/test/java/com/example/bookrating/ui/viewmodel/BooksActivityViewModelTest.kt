@@ -35,16 +35,16 @@ class BooksActivityViewModelTest {
     @Mock
     lateinit var ratingGenerator: NumberGenerator
 
-    lateinit var bookWithRating: BookWithRating
-    lateinit var book: Book
+    private lateinit var bookWithRating: BookWithRating
+    private lateinit var book: Book
 
-    val schedulerConfiguration = TestSchedulerConfigurationImpl.schedulerConfiguration
+    private val schedulerConfiguration = TestSchedulerConfigurationImpl.schedulerConfiguration
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     //SUT
-    lateinit var viewModel: BooksActivityViewModel
+    private lateinit var viewModel: BooksActivityViewModel
 
     @Before
     fun setUp() {
@@ -60,7 +60,7 @@ class BooksActivityViewModelTest {
 
     @Test
     fun generatorButtonClick() {
-        whenever(booksRepository.fetchBooks()).thenReturn(Observable.just(listOf(book)))
+        whenever(booksRepository.getBooks()).thenReturn(Observable.just(listOf(book)))
         whenever(ratingGenerator.getNextNumber(any())).thenReturn(Observable.just(GenerationResult(book, 4)))
         val dataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
 
@@ -97,32 +97,32 @@ class BooksActivityViewModelTest {
     @Test
     fun clickOnSetRatingInDialogCallsAddRatingToRepo() {
 
-        whenever(booksRepository.fetchBooks()).thenReturn(Observable.just(listOf(book)))
+        whenever(booksRepository.getBooks()).thenReturn(Observable.just(listOf(book)))
 
         viewModel.setBookRating("1", 5)
 
         verify(ratingsRepository, times(1)).addRating("1", 5)
-        verify(booksRepository, times(1)).fetchBooks()
+        verify(booksRepository, times(1)).getBooks()
     }
 
     @Test
     fun getBooksCallsGetBooksToRepo() {
-        whenever(booksRepository.fetchBooks()).thenReturn(Observable.just(listOf(book)))
+        whenever(booksRepository.getBooks()).thenReturn(Observable.just(listOf(book)))
 
         val dataObserver = viewModel.getBooksLiveData().testLiveDataWrapper()
 
         viewModel.getBooks()
 
-        verify(booksRepository, times(1)).fetchBooks()
+        verify(booksRepository, times(1)).getBooks()
         verify(ratingsRepository, times(1)).getBookRating(bookWithRating.id)
 
         assertEquals(1, dataObserver.observedValues.size)
 
         val booksFromRepo = dataObserver.observedValues.first()
 
-        booksFromRepo?.let {
-            val book = booksFromRepo.first()
-            book?.let {
+        booksFromRepo?.let { it ->
+            val resultBook = it.firstOrNull()
+            resultBook?.let { book ->
                 assertEquals(bookWithRating.id, book.id)
                 assertEquals(bookWithRating.title, book.title)
                 assertEquals(bookWithRating.image, book.image)

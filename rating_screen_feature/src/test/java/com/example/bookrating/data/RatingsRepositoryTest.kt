@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 class RatingsRepositoryTest {
 
     //SUT
-    lateinit var ratingsRepository: RatingsRepository
+    private lateinit var ratingsRepository: RatingsRepository
 
     @Before
     fun setUp() {

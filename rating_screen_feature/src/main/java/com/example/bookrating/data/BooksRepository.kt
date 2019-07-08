@@ -4,7 +4,13 @@ import com.example.bookrating.model.Book
 import com.example.bookrating.model.BookWithRating
 import io.reactivex.Observable
 
+/**
+ * Books repository interface
+ */
 interface BooksRepository {
-    fun fetchBooks() : Observable<List<Book>>
-    fun getBooks(): List<Book>
+    /**
+     * get books from repository
+     * @return Observable with list of books
+     */
+    fun getBooks() : Observable<List<Book>>
 }

@@ -3,6 +3,9 @@ package com.example.bookrating.api
 import com.example.bookrating.api.feed.BookFeed
 import com.example.bookrating.api.feed.BooksFeed
 
+/**
+ * Mock API for receiving list of books
+ */
 class BooksApi {
 
     val booksList = mutableListOf<BookFeed>()

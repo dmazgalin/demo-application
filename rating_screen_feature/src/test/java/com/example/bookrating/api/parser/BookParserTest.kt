@@ -3,7 +3,6 @@ package com.example.bookrating.api.parser
 import com.example.bookrating.api.feed.BookFeed
 import com.example.bookrating.api.feed.BooksFeed
 import com.example.bookrating.model.Book
-import com.example.bookrating.model.BookWithRating
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,27 +24,27 @@ class BookParserTest {
     fun testEmptyFeedParsing() {
         val result = parser.parse(BooksFeed())
 
-        assertEquals(0, result?.size, "Empty list for empty feed")
+        assertEquals(0, result.size, "Empty list for empty feed")
     }
 
     @Test
     fun testSingleItemFeedParsing() {
         val result = parser.parse(getFeedWithOneItem())
 
-        assertEquals(1, result?.size, "List with one item for one item feed")
+        assertEquals(1, result.size, "List with one item for one item feed")
 
-        assertEquals(getBookWithRating(getBookFeedItem(1)), result?.get(0), "")
+        assertEquals(getBookWithRating(getBookFeedItem(1)), result[0], "")
     }
 
     @Test
     fun testMultipleItemFeedParsing() {
         val result = parser.parse(getFeedWithMultipleItems())
 
-        assertEquals(3, result?.size, "List with one item for one item feed")
+        assertEquals(3, result.size, "List with one item for one item feed")
 
-        assertEquals(getBookWithRating(getBookFeedItem(1)), result?.get(0), "")
-        assertEquals(getBookWithRating(getBookFeedItem(2)), result?.get(1), "")
-        assertEquals(getBookWithRating(getBookFeedItem(3)), result?.get(2), "")
+        assertEquals(getBookWithRating(getBookFeedItem(1)), result[0], "")
+        assertEquals(getBookWithRating(getBookFeedItem(2)), result[1], "")
+        assertEquals(getBookWithRating(getBookFeedItem(3)), result[2], "")
     }
 
     private fun getFeedWithOneItem() = BooksFeed(listOf(getBookFeedItem(1)))

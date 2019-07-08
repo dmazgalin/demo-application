@@ -13,25 +13,30 @@ class BooksRepositoryImpl(
 
     val bookCache = mutableListOf<Book>()
 
-    override fun fetchBooks(): Observable<List<Book>> {
+    override fun getBooks(): Observable<List<Book>> {
         val network = Observable.fromCallable {
-            api.fetchBooks()
+            fetchBooksFromApi()
         }.observeOn(schedulers.io)
             .map { BooksParser().parse(it) }
             .filter { list -> !list.isEmpty() }
             .doOnNext { list -> addToCache(list) }
 
-        val cache = Observable.just(bookCache).filter { list -> !list.isEmpty() }
+        val cache = Observable.just(bookCache)
+            .filter { list ->
+                !list.isEmpty()
+            }
 
-        return Observable.concat(cache, network).firstElement().toObservable()
+        return Observable.concat(cache, network)
+            .firstElement()
+            .toObservable()
     }
 
-    override fun getBooks(): List<Book> {
-        return bookCache
-    }
+    private fun fetchBooksFromApi() = api.fetchBooks()
 
     private fun addToCache(it: List<Book>) {
-        bookCache.clear()
-        bookCache.addAll(it)
+        with(bookCache) {
+            clear()
+            addAll(it)
+        }
     }
 }

@@ -1,16 +1,13 @@
 package com.example.bookrating.rating
 
-import com.example.bookrating.data.BooksRepository
 import com.example.bookrating.model.Book
 import com.example.rx.test.TestSchedulerConfigurationImpl
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.TestScheduler
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.concurrent.TimeUnit
@@ -19,12 +16,11 @@ import kotlin.test.assertTrue
 @RunWith(MockitoJUnitRunner::class)
 class NumberGeneratorTest {
 
-    @Mock
-    lateinit var booksRepository: BooksRepository
-
-    lateinit var book: Book
-    lateinit var generator: NumberGenerator
+    private lateinit var book: Book
     private val disposables: CompositeDisposable = CompositeDisposable()
+
+    //SUT
+    private lateinit var generator: NumberGenerator
 
     @Before
     fun setUp() {
@@ -38,9 +34,7 @@ class NumberGeneratorTest {
 
         book = createSampleBook()
 
-        whenever(booksRepository.getBooks()).thenReturn(listOf(book))
-
-        val testObserver = generator.getNextNumber(booksRepository.getBooks()).test()
+        val testObserver = generator.getNextNumber(listOf(book)).test()
 
         disposables.add(testObserver)
 

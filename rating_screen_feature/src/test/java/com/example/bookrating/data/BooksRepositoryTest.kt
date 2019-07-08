@@ -37,7 +37,7 @@ class BooksRepositoryTest {
     fun testRepoCanParseEmptyBooksFeed() {
         whenever(api.fetchBooks()) doReturn BooksFeed()
 
-        val testObserver = booksRepository.fetchBooks().test()
+        val testObserver = booksRepository.getBooks().test()
 
         disposables.add(testObserver)
 
@@ -49,7 +49,7 @@ class BooksRepositoryTest {
     fun testRepoCanParseNonEmptyBooksFeed() {
         whenever(api.fetchBooks()) doReturn getNonEmptyBooksFeed()
 
-        val testObserver = booksRepository.fetchBooks().test()
+        val testObserver = booksRepository.getBooks().test()
 
         disposables.add(testObserver)
 
