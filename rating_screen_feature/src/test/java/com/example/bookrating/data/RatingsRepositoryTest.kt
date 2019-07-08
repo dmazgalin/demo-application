@@ -32,7 +32,7 @@ class RatingsRepositoryTest {
         ratingsRepository.addRating("1", 2)
 
 
-        assertEquals(2, ratingsRepository.getBookRating("1")?.getEverageRating(), "Everage rating should be 2")
+        assertEquals(2F, ratingsRepository.getBookRating("1")?.getEverageRating(), "Everage rating should be 2")
     }
 
     @Test
@@ -43,8 +43,8 @@ class RatingsRepositoryTest {
         ratingsRepository.addRating("2", 2)
         ratingsRepository.addRating("2", 4)
 
-        assertEquals(2, ratingsRepository.getBookRating("1")?.getEverageRating(), "Everage rating should be 2")
-        assertEquals(3, ratingsRepository.getBookRating("2")?.getEverageRating(), "Everage rating should be 3")
+        assertEquals(2F, ratingsRepository.getBookRating("1")?.getEverageRating(), "Everage rating should be 2")
+        assertEquals(3F, ratingsRepository.getBookRating("2")?.getEverageRating(), "Everage rating should be 3")
     }
 
     @After

@@ -69,6 +69,7 @@ class RatingDialog : DialogFragment() {
     private fun setupNegativeButton(builder: AlertDialog.Builder) {
         builder.setNegativeButton(getText(R.string.cancel)) { _, _ ->
             listener?.onNegativeButtonClicked()
+            dismiss()
         }
     }
 
@@ -76,6 +77,7 @@ class RatingDialog : DialogFragment() {
         builder.setPositiveButton(getText(R.string.rate)) { _, _ ->
             val rateNumber = dialogView.rateNumber.toInt()
             listener?.onPositiveButtonClicked(rateNumber, data)
+            dismiss()
         }
     }
 

@@ -24,11 +24,11 @@ class NumberGenerator(val scheduler: Scheduler) {
             }.repeatWhen {
                 it.delay(periods[Random.nextInt(periods.size)], TimeUnit.SECONDS)
             }
-            .observeOn(scheduler)
+            .subscribeOn(scheduler)
     }
 
     companion object {
         private const val MAX_RATING_VALUE = 5
-        private val periods: LongArray = longArrayOf(1, 2, 3, 4, 5)
+        private val periods: LongArray = longArrayOf(3, 4, 5, 6, 7)
     }
 }

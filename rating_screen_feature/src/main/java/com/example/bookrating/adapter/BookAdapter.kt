@@ -1,18 +1,18 @@
 package com.example.bookrating.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookrating.R
 import com.example.bookrating.adapter.utils.BooksDiffUtils
-import com.example.bookrating.model.BookWithRating
 import com.example.bookrating.adapter.viewholder.BookViewHolder
-import io.reactivex.subjects.PublishSubject
-import timber.log.Timber
-import java.util.ArrayList
+import com.example.bookrating.model.BookWithRating
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
-class BookAdapter(private val onClickListener: (Int, BookWithRating) -> Unit) : RecyclerView.Adapter<BookViewHolder>() {
+class BookAdapter(private val onClickListener: (BookWithRating) -> Unit) : RecyclerView.Adapter<BookViewHolder>() {
 
     private var books: List<BookWithRating> = emptyList()
 
@@ -27,15 +27,15 @@ class BookAdapter(private val onClickListener: (Int, BookWithRating) -> Unit) : 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookWithRating = books.getOrNull(position)
         bookWithRating?.let { item ->
-            bindBookToViewHolder(holder, item, position)
+            bindBookToViewHolder(holder, item)
         }
     }
 
-    private fun bindBookToViewHolder(holder: BookViewHolder, item: BookWithRating, position: Int) {
+    private fun bindBookToViewHolder(holder: BookViewHolder, item: BookWithRating) {
         with(holder) {
             title.text = item.title
-            rating.text = "Rating ${item.rating}"
-            itemView.setOnClickListener { onClickListener(position, item) }
+            rating.text = roundOffDecimal(itemView.resources, item.rating)
+            itemView.setOnClickListener { onClickListener(item) }
         }
     }
 
@@ -46,5 +46,14 @@ class BookAdapter(private val onClickListener: (Int, BookWithRating) -> Unit) : 
         diffResult.dispatchUpdatesTo(this)
 
         this.books = list
+    }
+
+    private fun roundOffDecimal(resources: Resources, number: Float): String {
+        if (number > 0) {
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.FLOOR
+            return resources.getString(R.string.rating, df.format(number))
+        }
+        return resources.getString(R.string.no_rating)
     }
 }

@@ -36,8 +36,8 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.books_activity)
 
-        bookAdapter = BookAdapter { position, book ->
-            viewModel.onItemClick(position, book)
+        bookAdapter = BookAdapter { book ->
+            showRateDialog(book.id)
         }
 
         booksRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -54,11 +54,13 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
                 getBooks()
             }
         })
-        viewModel.getControlButtonLiveData().observe(this, Observer {
-            isActive -> generatorButton.text = getString(if (isActive) R.string.stop else R.string.random)
+        viewModel.getControlButtonLiveData().observe(this, Observer { isActive ->
+            run {
+                Toast.makeText(this, if (isActive) R.string.generation_started else R.string.generation_stoped, Toast.LENGTH_SHORT).show()
+                generatorButton.text = getString(if (isActive) R.string.stop else R.string.random)
+            }
         })
 
-        setupRateDialog()
         setupGeneratorClick()
     }
 
@@ -76,10 +78,6 @@ class BooksActivity : AppCompatActivity(), RatingDialogListener {
     override fun onNegativeButtonClicked() {
         Timber.d("Rating was canceled")
     }
-
-    private fun setupRateDialog() = viewModel.getDialogCallLiveData().observe(this, Observer { book ->
-        showRateDialog(book.id)
-    })
 
     private fun setupGeneratorClick() {
         generatorButton.setOnClickListener {

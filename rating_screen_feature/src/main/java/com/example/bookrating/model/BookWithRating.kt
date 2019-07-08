@@ -7,4 +7,4 @@ package com.example.bookrating.model
  * @param image - book image (not used at the moment future work for Picasso)
  * @param rating - book avarage rating
  */
-data class BookWithRating(val id: String, val title: String, val image: String, var rating: Int)
+data class BookWithRating(val id: String, val title: String, val image: String, var rating: Float)

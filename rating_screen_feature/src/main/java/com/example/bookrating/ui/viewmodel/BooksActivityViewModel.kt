@@ -22,7 +22,6 @@ class BooksActivityViewModel(
 
     private val ratingLiveData = MutableLiveData<GenerationResult>()
     private val booksLiveData = MutableLiveData<List<BookWithRating>>()
-    private val dialogLiveData = MutableLiveData<BookWithRating>()
     private val controllButtonLiveData = MutableLiveData<Boolean>()
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -32,8 +31,6 @@ class BooksActivityViewModel(
     fun getRatingLiveData(): LiveData<GenerationResult> = ratingLiveData
 
     fun getBooksLiveData(): LiveData<List<BookWithRating>> = booksLiveData
-
-    fun getDialogCallLiveData(): LiveData<BookWithRating> = dialogLiveData
 
     fun getControlButtonLiveData(): LiveData<Boolean> = controllButtonLiveData
 
@@ -57,7 +54,7 @@ class BooksActivityViewModel(
 
         val booksWithRating = mutableListOf<BookWithRating>()
         for (book in books) {
-            val rating = ratingsRepository.getBookRating(book.id)?.getEverageRating() ?: 0
+            val rating = ratingsRepository.getBookRating(book.id)?.getEverageRating() ?: 0F
             booksWithRating.add(BookWithRating(book.id, book.title, book.image, rating))
         }
 
@@ -107,9 +104,5 @@ class BooksActivityViewModel(
         ratingsRepository.addRating(bookId, rate)
 
         getBooks()
-    }
-
-    fun onItemClick(position: Int, bookWithRating: BookWithRating) {
-        dialogLiveData.postValue(bookWithRating)
     }
 }

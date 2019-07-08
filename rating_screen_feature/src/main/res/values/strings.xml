@@ -7,9 +7,13 @@
     <string name="bad">Bad</string>
     <string name="normal">Normal</string>
     <string name="good">Good</string>
-    <string name="excelent">Excelent</string>
+    <string name="excelent">Excellent</string>
     <string name="rating_dialog">Rating dialog</string>
     <string name="rating_dialog_description">Please provide your opinion</string>
     <string name="random">Random</string>
     <string name="stop">Stop</string>
+    <string name="generation_started">Rating generation started</string>
+    <string name="generation_stoped">Rating generation stoped</string>
+    <string name="rating">av.rating %s</string>
+    <string name="no_rating">N/A</string>
 </resources>

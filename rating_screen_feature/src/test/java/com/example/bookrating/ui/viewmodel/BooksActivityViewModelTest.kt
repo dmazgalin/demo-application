@@ -62,7 +62,9 @@ class BooksActivityViewModelTest {
     fun generatorButtonClick() {
         whenever(booksRepository.getBooks()).thenReturn(Observable.just(listOf(book)))
         whenever(ratingGenerator.getRatingGeneration(any())).thenReturn(Observable.just(GenerationResult(book, 4)))
-        val dataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
+
+        val controllDataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
+        val ratingDataObserver = viewModel.getRatingLiveData().testLiveDataWrapper()
 
         viewModel.generatorButtonClicked()
 
@@ -70,28 +72,13 @@ class BooksActivityViewModelTest {
 
         viewModel.generatorButtonClicked()
 
-        assertEquals(2, dataObserver.observedValues.size)
+        assertEquals(2, controllDataObserver.observedValues.size)
 
-        assertEquals(true, dataObserver.observedValues.first())
-        assertEquals(false, dataObserver.observedValues.last())
-    }
+        assertEquals(true, controllDataObserver.observedValues.first())
+        assertEquals(false, controllDataObserver.observedValues.last())
 
-    @Test
-    fun clickOnBookCreateShowDialogEvent() {
-        val dataObserver = viewModel.getDialogCallLiveData().testLiveDataWrapper()
-
-        viewModel.onItemClick(0, bookWithRating)
-
-        assertEquals(1, dataObserver.observedValues.size)
-
-        val bookToSetRating = dataObserver.observedValues.first()
-
-        bookToSetRating?.let {
-            assertEquals(bookWithRating.id, bookToSetRating.id)
-            assertEquals(bookWithRating.title, bookToSetRating.title)
-            assertEquals(bookWithRating.image, bookToSetRating.image)
-            assertEquals(bookWithRating.rating, bookToSetRating.rating)
-        }
+        assertEquals(1, ratingDataObserver.observedValues.size)
+        assertEquals(4, ratingDataObserver.observedValues.first()?.rating)
     }
 
     @Test
@@ -131,7 +118,7 @@ class BooksActivityViewModelTest {
         }
     }
 
-    private fun createSampleBookWithRating() = BookWithRating("1", "Book", "image", 4)
+    private fun createSampleBookWithRating() = BookWithRating("1", "Book", "image", 4F)
 
     private fun createSampleBook() = Book("1", "Book", "image")
 }

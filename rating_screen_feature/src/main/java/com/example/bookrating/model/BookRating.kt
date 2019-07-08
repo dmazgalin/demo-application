@@ -15,8 +15,8 @@ data class BookRating(val id: String, var oneStar: Int, var twoStar: Int, var th
     /**
      *  Get everage rating by calculating total amount of rate values divided by total amout of rates
      */
-    fun getEverageRating(): Int {
-        return (1 * oneStar + 2 * twoStar + 3 * threeStar + 4 * fourStar + 5 * fiveStar) / (oneStar + twoStar + threeStar + fourStar + fiveStar)
+    fun getEverageRating(): Float {
+        return (1 * oneStar + 2 * twoStar + 3 * threeStar + 4 * fourStar + 5 * fiveStar).toFloat() / (oneStar + twoStar + threeStar + fourStar + fiveStar)
     }
 
     /**
