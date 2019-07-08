@@ -34,7 +34,7 @@ class NumberGeneratorTest {
 
         book = createSampleBook()
 
-        val testObserver = generator.getNextNumber(listOf(book)).test()
+        val testObserver = generator.getRatingGeneration(listOf(book)).test()
 
         disposables.add(testObserver)
 

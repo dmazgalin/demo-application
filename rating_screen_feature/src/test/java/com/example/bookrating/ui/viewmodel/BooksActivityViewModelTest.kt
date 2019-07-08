@@ -61,12 +61,12 @@ class BooksActivityViewModelTest {
     @Test
     fun generatorButtonClick() {
         whenever(booksRepository.getBooks()).thenReturn(Observable.just(listOf(book)))
-        whenever(ratingGenerator.getNextNumber(any())).thenReturn(Observable.just(GenerationResult(book, 4)))
+        whenever(ratingGenerator.getRatingGeneration(any())).thenReturn(Observable.just(GenerationResult(book, 4)))
         val dataObserver = viewModel.getControlButtonLiveData().testLiveDataWrapper()
 
         viewModel.generatorButtonClicked()
 
-        verify(ratingGenerator, only()).getNextNumber(any())
+        verify(ratingGenerator, only()).getRatingGeneration(any())
 
         viewModel.generatorButtonClicked()
 

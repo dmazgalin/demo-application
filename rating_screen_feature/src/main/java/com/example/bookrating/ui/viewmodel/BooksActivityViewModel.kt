@@ -67,7 +67,7 @@ class BooksActivityViewModel(
     fun generateRating() {
         val disposable = booksRepository.getBooks()
             .flatMap { books ->
-                generator.getNextNumber(books)
+                generator.getRatingGeneration(books)
             }
             .observeOn(schedulerConfiguration.ui)
             .subscribe({ result ->
